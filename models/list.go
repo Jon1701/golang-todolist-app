@@ -1,5 +1,9 @@
 package models
 
+import (
+	"github.com/google/uuid"
+)
+
 type List struct {
 	ID   *string `json:"id"`
 	Name *string `json:"name"`
@@ -9,6 +13,12 @@ type List struct {
 var db = []List{}
 
 func (l *List) CreateTodoList() (*List, error) {
+	// Create new UUID.
+	id := uuid.NewString()
+
+	// Attach id to the list to be persisted.
+	l.ID = &id
+
 	db = append(db, *l)
 
 	return l, nil
