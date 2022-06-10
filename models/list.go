@@ -59,3 +59,20 @@ func DeleteTodoListByID(id string) error {
 
 	return nil
 }
+
+func (l *List) UpdateTodoListByID(id *string) (List, error) {
+	// Get the ID of the matching Todo list.
+	matchingIndex := -1
+
+	// Get the index of the Todolist in the database.
+	for index, value := range db {
+		if value.ID == id {
+			matchingIndex = index
+		}
+	}
+
+	// Update fields.
+	db[matchingIndex].Name = l.Name
+
+	return db[matchingIndex], nil
+}
