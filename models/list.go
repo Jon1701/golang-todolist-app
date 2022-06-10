@@ -5,10 +5,15 @@ type List struct {
 	Name *string `json:"name"`
 }
 
-var db []List
+// Fake empty database.
+var db = []List{}
 
 func (l *List) CreateTodoList() (*List, error) {
 	db = append(db, *l)
 
 	return l, nil
+}
+
+func GetTodoLists() []List {
+	return db
 }
