@@ -110,6 +110,61 @@ func GetTodoListByID(w http.ResponseWriter, r *http.Request) {
 	w.Write(j)
 }
 
+func UpdateTodoListByID(w http.ResponseWriter, r *http.Request) {
+	// Get URL parameters.
+	vars := mux.Vars(r)
+
+	// Todo List ID
+	id := vars["listID"]
+
+	// Get matching Todo list from the database.
+	l := models.GetTodoListByID(id)
+
+	// If no matching Todo List was found, return 404.
+	if l == nil {
+		e := GenericHTTPError{
+			Message: "Could not find List ID",
+		}
+
+		j, _ := json.Marshal(e)
+
+		w.WriteHeader(http.StatusNotFound)
+		w.Write(j)
+		return
+	}
+
+	// Get request body.
+	parsedBody := &models.List{}
+	errParseBody := util.ParseRequestBody(r, &parsedBody)
+
+	// Failed to parse request body.
+	if errParseBody != nil {
+		respondMalformedRequestBody(w)
+		return
+	}
+
+	// Validate request body.
+	validationResult := ValidateCreateList(parsedBody)
+
+	// If request body failed validation, return 400 Bad request with validation errors
+	if validationResult != nil {
+		j, _ := json.Marshal(validationResult)
+
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write(j)
+		return
+	}
+
+	// Persist into the database.
+	result, _ := parsedBody.UpdateTodoListByID(l.ID)
+
+	// Return updated value to front-end.
+	j, _ := json.Marshal(result)
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
+}
+
 func ValidateCreateList(o *models.List) *models.List {
 	isValid := true
 
