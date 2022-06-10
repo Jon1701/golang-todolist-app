@@ -35,6 +35,19 @@ func CreateTodoList(w http.ResponseWriter, r *http.Request) {
 		w.Write(bArr)
 		return
 	}
+
+	// Persist using Model.
+	result, err := newList.CreateTodoList()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// Convert persisted data into JSON for front-end.
+	json, _ := json.Marshal(result)
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(json)
 }
 
 func ValidateCreateList(o *models.List) *models.List {
