@@ -27,3 +27,13 @@ func (l *List) CreateTodoList() (*List, error) {
 func GetTodoLists() []List {
 	return db
 }
+
+func GetTodoListByID(id string) *List {
+	for _, value := range db {
+		if id == *value.ID {
+			return &value
+		}
+	}
+
+	return nil
+}
