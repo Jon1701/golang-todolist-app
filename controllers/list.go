@@ -51,6 +51,29 @@ func CreateTodoList(w http.ResponseWriter, r *http.Request) {
 	w.Write(json)
 }
 
+func DeleteTodoListByID(w http.ResponseWriter, r *http.Request) {
+	// Get URL parameters.
+	vars := mux.Vars(r)
+
+	id := vars["listID"]
+
+	result := models.DeleteTodoListByID(id)
+
+	if result != nil {
+		err := GenericHTTPError{
+			Message: "Could not find List ID",
+		}
+
+		j, _ := json.Marshal(err)
+
+		w.WriteHeader(http.StatusNotFound)
+		w.Write(j)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
 func GetTodoLists(w http.ResponseWriter, r *http.Request) {
 	// Get array of Todo lists from the database.
 	results := models.GetTodoLists()
