@@ -7,6 +7,7 @@ import (
 
 	"github.com/Jon1701/golang-todolist-app/models"
 	"github.com/Jon1701/golang-todolist-app/util"
+	"github.com/gorilla/mux"
 )
 
 type GenericHTTPError struct {
@@ -58,6 +59,32 @@ func GetTodoLists(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write(o)
+}
+
+func GetTodoListByID(w http.ResponseWriter, r *http.Request) {
+	// Get URL parameters
+	vars := mux.Vars(r)
+
+	id := vars["listID"]
+
+	result := models.GetTodoListByID(id)
+
+	if result == nil {
+		err := GenericHTTPError{
+			Message: "List not found",
+		}
+		j, _ := json.Marshal(err)
+
+		w.WriteHeader(http.StatusNotFound)
+		w.Write(j)
+
+		return
+	}
+
+	j, _ := json.Marshal(result)
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(j)
 }
 
 func ValidateCreateList(o *models.List) *models.List {
