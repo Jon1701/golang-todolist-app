@@ -1,6 +1,8 @@
 package models
 
 import (
+	"errors"
+
 	"github.com/google/uuid"
 )
 
@@ -34,6 +36,26 @@ func GetTodoListByID(id string) *List {
 			return &value
 		}
 	}
+
+	return nil
+}
+
+func DeleteTodoListByID(id string) error {
+	// Index of the matching todo list.
+	matchingIndex := -1
+
+	for i, value := range db {
+		if *value.ID == id {
+			matchingIndex = i
+		}
+	}
+
+	if matchingIndex < 0 {
+		return errors.New("List not found")
+	}
+
+	// Remove matching element.
+	db = append(db[:matchingIndex], db[matchingIndex+1:]...)
 
 	return nil
 }
