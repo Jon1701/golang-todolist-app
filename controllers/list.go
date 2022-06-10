@@ -50,6 +50,16 @@ func CreateTodoList(w http.ResponseWriter, r *http.Request) {
 	w.Write(json)
 }
 
+func GetTodoLists(w http.ResponseWriter, r *http.Request) {
+	// Get array of Todo lists from the database.
+	results := models.GetTodoLists()
+
+	o, _ := json.Marshal(results)
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(o)
+}
+
 func ValidateCreateList(o *models.List) *models.List {
 	isValid := true
 
