@@ -26,23 +26,38 @@ func CreateTodoList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check if the Name has valid length
-	isNameLengthValid := len(*newList.Name) >= 1 && len(*newList.Name) <= 255
-	if !isNameLengthValid {
-		// Create new error.
-		msg := errStringFieldLengthRangeRequired(1, 255)
-		e := models.List{
-			Name: &msg,
-		}
-
-		bArr, _ := json.Marshal(e)
+	// Validate request body
+	results := ValidateCreateList(newList)
+	if results != nil {
+		bArr, _ := json.Marshal(results)
 
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write(bArr)
 		return
+	}
+}
 
+func ValidateCreateList(o *models.List) *models.List {
+	isValid := true
+
+	// Struct to contain validation results
+	err := &models.List{}
+
+	isNameLengthValid := len(*o.Name) >= 1 && len(*o.Name) <= 255
+	if !isNameLengthValid {
+		// Build validation message for this field
+		msg := errStringFieldLengthRangeRequired(1, 255)
+		err.Name = &msg
+
+		// Fail validation
+		isValid = false
 	}
 
+	if isValid {
+		return nil
+	}
+
+	return err
 }
 
 func errStringFieldLengthRangeRequired(x uint32, y uint32) string {
