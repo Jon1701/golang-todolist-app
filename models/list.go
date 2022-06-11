@@ -73,7 +73,7 @@ func DeleteTodoListByID(id string) error {
 	}
 
 	if matchingIndex < 0 {
-		return errors.New("List not found")
+		return errors.New("list not found")
 	}
 
 	// Remove matching element.
