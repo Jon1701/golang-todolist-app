@@ -15,6 +15,11 @@ type GenericHTTPError struct {
 	Message string `json:"message"`
 }
 
+const (
+	MinStringFieldLen = 1
+	MaxStringFieldLen = 255
+)
+
 func CreateTodoList(w http.ResponseWriter, r *http.Request) {
 	// New blank todo list to be created
 	newList := &models.TodoList{}
@@ -174,10 +179,10 @@ func ValidateCreateList(o *models.TodoList) *models.TodoList {
 
 	hasName := o.Name != nil
 
-	isNameLengthValid := hasName && len(strings.TrimSpace(*o.Name)) >= 1 && len(strings.TrimSpace(*o.Name)) <= 255
+	isNameLengthValid := hasName && len(strings.TrimSpace(*o.Name)) >= MinStringFieldLen && len(strings.TrimSpace(*o.Name)) <= MaxStringFieldLen
 	if !isNameLengthValid {
 		// Build validation message for this field
-		msg := errStringFieldLengthRangeRequired(1, 255)
+		msg := errStringFieldLengthRangeRequired(MinStringFieldLen, 255)
 		err.Name = &msg
 
 		// Fail validation
@@ -187,7 +192,7 @@ func ValidateCreateList(o *models.TodoList) *models.TodoList {
 	// Iterate over the Items.
 	for _, value := range o.Items {
 		// Check if the Description is valid.
-		isItemDescriptionValid := value.Description != nil && len(strings.TrimSpace(*value.Description)) >= 1 && len(strings.TrimSpace(*value.Description)) <= 255
+		isItemDescriptionValid := value.Description != nil && len(strings.TrimSpace(*value.Description)) >= MinStringFieldLen && len(strings.TrimSpace(*value.Description)) <= MaxStringFieldLen
 
 		if isItemDescriptionValid {
 			// If the Description is valid, return empty struct to preserve order.
@@ -196,7 +201,7 @@ func ValidateCreateList(o *models.TodoList) *models.TodoList {
 			isValid = false
 
 			// If the Description is invalid, return error message.
-			msg := errStringFieldLengthRangeRequired(1, 255)
+			msg := errStringFieldLengthRangeRequired(MinStringFieldLen, MaxStringFieldLen)
 			err.Items = append(err.Items, models.TodoListItem{
 				Description: &msg,
 			})
