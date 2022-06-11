@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/Jon1701/golang-todolist-app/models"
 	"github.com/Jon1701/golang-todolist-app/util"
@@ -179,6 +180,25 @@ func ValidateCreateList(o *models.TodoList) *models.TodoList {
 
 		// Fail validation
 		isValid = false
+	}
+
+	// Iterate over the Items.
+	for _, value := range o.Items {
+		// Check if the Description is valid.
+		isItemDescriptionValid := value.Description != nil && len(strings.TrimSpace(*value.Description)) >= 1 && len(strings.TrimSpace(*value.Description)) <= 255
+
+		if isItemDescriptionValid {
+			// If the Description is valid, return empty struct to preserve order.
+			err.Items = append(err.Items, models.TodoListItem{})
+		} else {
+			isValid = false
+
+			// If the Description is invalid, return error message.
+			msg := errStringFieldLengthRangeRequired(1, 255)
+			err.Items = append(err.Items, models.TodoListItem{
+				Description: &msg,
+			})
+		}
 	}
 
 	if isValid {
