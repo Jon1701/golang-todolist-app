@@ -86,8 +86,18 @@ func (l *TodoList) UpdateTodoListByID(id *string) (TodoList, error) {
 		}
 	}
 
+	// Iterate over the Todo List Items
+	for index := 0; index < len(l.Items); index++ {
+		// Explicitly set IsComplete status.
+		if l.Items[index].IsComplete == nil {
+			b := false
+			l.Items[index].IsComplete = &b
+		}
+	}
+
 	// Update fields.
 	db[matchingIndex].Name = l.Name
+	db[matchingIndex].Items = l.Items
 
 	return db[matchingIndex], nil
 }
