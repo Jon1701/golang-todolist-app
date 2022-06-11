@@ -16,7 +16,7 @@ type GenericHTTPError struct {
 
 func CreateTodoList(w http.ResponseWriter, r *http.Request) {
 	// New blank todo list to be created
-	newList := &models.List{}
+	newList := &models.TodoList{}
 
 	// Parse request body.
 	errParseBody := util.ParseRequestBody(r, &newList)
@@ -134,7 +134,7 @@ func UpdateTodoListByID(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get request body.
-	parsedBody := &models.List{}
+	parsedBody := &models.TodoList{}
 	errParseBody := util.ParseRequestBody(r, &parsedBody)
 
 	// Failed to parse request body.
@@ -165,11 +165,11 @@ func UpdateTodoListByID(w http.ResponseWriter, r *http.Request) {
 	w.Write(j)
 }
 
-func ValidateCreateList(o *models.List) *models.List {
+func ValidateCreateList(o *models.TodoList) *models.TodoList {
 	isValid := true
 
 	// Struct to contain validation results
-	err := &models.List{}
+	err := &models.TodoList{}
 
 	isNameLengthValid := len(*o.Name) >= 1 && len(*o.Name) <= 255
 	if !isNameLengthValid {

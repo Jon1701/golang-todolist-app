@@ -6,15 +6,15 @@ import (
 	"github.com/google/uuid"
 )
 
-type List struct {
+type TodoList struct {
 	ID   *string `json:"id"`
 	Name *string `json:"name"`
 }
 
 // Fake empty database.
-var db = []List{}
+var db = []TodoList{}
 
-func (l *List) CreateTodoList() (*List, error) {
+func (l *TodoList) CreateTodoList() (*TodoList, error) {
 	// Create new UUID.
 	id := uuid.NewString()
 
@@ -26,11 +26,11 @@ func (l *List) CreateTodoList() (*List, error) {
 	return l, nil
 }
 
-func GetTodoLists() []List {
+func GetTodoLists() []TodoList {
 	return db
 }
 
-func GetTodoListByID(id string) *List {
+func GetTodoListByID(id string) *TodoList {
 	for _, value := range db {
 		if id == *value.ID {
 			return &value
@@ -60,7 +60,7 @@ func DeleteTodoListByID(id string) error {
 	return nil
 }
 
-func (l *List) UpdateTodoListByID(id *string) (List, error) {
+func (l *TodoList) UpdateTodoListByID(id *string) (TodoList, error) {
 	// Get the ID of the matching Todo list.
 	matchingIndex := -1
 
