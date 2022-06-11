@@ -29,7 +29,7 @@ func (l *TodoList) CreateTodoList() (*TodoList, error) {
 	l.ID = &id
 
 	// Iterate over the Todo List Items
-	for index, _ := range l.Items {
+	for index := 0; index < len(l.Items); index++ {
 		// Generate ID.
 		id := uuid.NewString()
 
