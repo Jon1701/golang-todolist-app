@@ -28,6 +28,21 @@ func (l *TodoList) CreateTodoList() (*TodoList, error) {
 	// Attach id to the list to be persisted.
 	l.ID = &id
 
+	// Iterate over the Todo List Items
+	for index, _ := range l.Items {
+		// Generate ID.
+		id := uuid.NewString()
+
+		// Attach ID.
+		l.Items[index].ID = &id
+
+		// Explicitly set IsComplete status.
+		if l.Items[index].IsComplete == nil {
+			b := false
+			l.Items[index].IsComplete = &b
+		}
+	}
+
 	db = append(db, *l)
 
 	return l, nil
