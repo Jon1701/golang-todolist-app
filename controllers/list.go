@@ -172,7 +172,9 @@ func ValidateCreateList(o *models.TodoList) *models.TodoList {
 	// Struct to contain validation results
 	err := &models.TodoList{}
 
-	isNameLengthValid := len(*o.Name) >= 1 && len(*o.Name) <= 255
+	hasName := o.Name != nil
+
+	isNameLengthValid := hasName && len(strings.TrimSpace(*o.Name)) >= 1 && len(strings.TrimSpace(*o.Name)) <= 255
 	if !isNameLengthValid {
 		// Build validation message for this field
 		msg := errStringFieldLengthRangeRequired(1, 255)
