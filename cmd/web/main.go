@@ -10,7 +10,10 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	routes.RegisterTodoRoutes(r)
+
+	apiSubRouter := r.PathPrefix("/api").Subrouter()
+
+	routes.RegisterTodoRoutes(apiSubRouter)
 
 	http.Handle("/", r)
 
