@@ -7,8 +7,15 @@ import (
 )
 
 type TodoList struct {
-	ID   *string `json:"id"`
-	Name *string `json:"name"`
+	ID    *string        `json:"id,omitempty"`
+	Name  *string        `json:"name,omitempty"`
+	Items []TodoListItem `json:"items,omitempty"`
+}
+
+type TodoListItem struct {
+	ID          *string `json:"id,omitempty"`
+	Description *string `json:"description,omitempty"`
+	IsComplete  *bool   `json:"isComplete,omitempty"`
 }
 
 // Fake empty database.
