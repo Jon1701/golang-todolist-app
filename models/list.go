@@ -13,7 +13,6 @@ type TodoList struct {
 }
 
 type TodoListItem struct {
-	ID          *string `json:"id,omitempty"`
 	Description *string `json:"description,omitempty"`
 	IsComplete  *bool   `json:"isComplete,omitempty"`
 }
@@ -30,12 +29,6 @@ func (l *TodoList) CreateTodoList() (*TodoList, error) {
 
 	// Iterate over the Todo List Items
 	for index := 0; index < len(l.Items); index++ {
-		// Generate ID.
-		id := uuid.NewString()
-
-		// Attach ID.
-		l.Items[index].ID = &id
-
 		// Explicitly set IsComplete status.
 		if l.Items[index].IsComplete == nil {
 			b := false
