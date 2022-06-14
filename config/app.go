@@ -2,8 +2,9 @@ package config
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -18,10 +19,14 @@ func Connect() {
 	uri := os.Getenv("MONGO_CONN_STRING")
 
 	// Create a new client and connect to the server.
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
+	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 	if err != nil {
-		fmt.Println("Fatal error")
-		return
+		log.Fatal(err)
+	}
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	err = client.Connect(ctx)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	db = client
