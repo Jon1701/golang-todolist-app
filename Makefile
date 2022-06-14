@@ -8,7 +8,7 @@ GOLANG_TODOLIST_MONGO_APP_PASSWORD=appuser
 
 # Starts the Go application.
 run:
-	MONGO_CONN_STRING="mongodb://${GOLANG_TODOLIST_MONGO_APP_USERNAME}:${GOLANG_TODOLIST_MONGO_APP_PASSWORD}@localhost:27017" \
+	MONGO_CONN_STRING="mongodb://${GOLANG_TODOLIST_MONGO_APP_USERNAME}:${GOLANG_TODOLIST_MONGO_APP_PASSWORD}@localhost:27017/${GOLANG_TODOLIST_MONGO_DATABASE_NAME}" \
 		go run cmd/web/main.go
 
 # Starts the database.
@@ -31,10 +31,10 @@ db-shell:
 # Opens Mongo Shell on the database container.
 db-mongosh-admin:
 	docker exec -it ${GOLANG_TODOLIST_MONGO_DOCKER_CONTAINER_NAME} \
-		bash -c 'mongosh mongodb://${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_USERNAME}:${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_PASSWORD}@localhost:27017/admin'
+		bash -c 'mongosh mongodb://${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_USERNAME}:${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_PASSWORD}@127.0.0.1:27017/admin'
 
 # Creates application user for MongoDB.
 create-mongo-db-user:
 	docker cp .db/create-user.js ${GOLANG_TODOLIST_MONGO_DOCKER_CONTAINER_NAME}:/tmp/
 	docker exec -it ${GOLANG_TODOLIST_MONGO_DOCKER_CONTAINER_NAME} \
-		mongosh mongodb://${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_USERNAME}:${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_PASSWORD}@localhost:27017/admin --file /tmp/create-user.js
+		mongosh mongodb://${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_USERNAME}:${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_PASSWORD}@127.0.0.1:27017/admin --file /tmp/create-user.js
