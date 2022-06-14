@@ -3,7 +3,9 @@ package models
 import (
 	"errors"
 
+	"github.com/Jon1701/golang-todolist-app/config"
 	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type TodoList struct {
@@ -19,6 +21,12 @@ type TodoListItem struct {
 
 // Fake empty database.
 var db = []TodoList{}
+var client *mongo.Client
+
+func init() {
+	config.Connect()
+	client = config.GetDB()
+}
 
 func (l *TodoList) CreateTodoList() (*TodoList, error) {
 	// Create new UUID.
