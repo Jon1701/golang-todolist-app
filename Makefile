@@ -50,3 +50,6 @@ wait-5s:
 	@echo "Waiting for 5 seconds..."
 	@sleep 5s
 	@echo "Done waiting"
+
+# Restarts all services and creates application user in MongoDB.
+start: stop-services start-services wait-5s create-mongodb-application-user
