@@ -3,8 +3,10 @@ package models
 import (
 	"context"
 	"errors"
+	"log"
 
 	"github.com/Jon1701/golang-todolist-app/config"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -54,7 +56,18 @@ func (l *TodoList) CreateTodoList() (*string, error) {
 }
 
 func GetTodoLists() []TodoList {
-	return db
+	cursor, err := coll.Find(context.TODO(), bson.D{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	results := make([]TodoList, 0)
+	err = cursor.All(context.TODO(), &results)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return results
 }
 
 func GetTodoListByID(id string) *TodoList {
