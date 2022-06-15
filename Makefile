@@ -11,16 +11,16 @@ run:
 	MONGO_CONN_STRING="mongodb://${GOLANG_TODOLIST_MONGO_APP_USERNAME}:${GOLANG_TODOLIST_MONGO_APP_PASSWORD}@localhost:27017/${GOLANG_TODOLIST_MONGO_DATABASE_NAME}" \
 		go run cmd/web/main.go
 
-# Starts the database.
-start-db:
+# Starts application services.
+start-services:
 	MONGO_DOCKER_CONTAINER_NAME=${GOLANG_TODOLIST_MONGO_DOCKER_CONTAINER_NAME} \
 	MONGO_INITDB_DATABASE=${GOLANG_TODOLIST_MONGO_DATABASE_NAME} \
 	MONGO_INITDB_ROOT_USERNAME=${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_USERNAME} \
 	MONGO_INITDB_ROOT_PASSWORD=${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_PASSWORD} \
 		docker-compose up -d
 
-# Stops the database.
-stop-db:
+# Stops application services.
+stop-services:
 	docker-compose down 
 
 # Opens a shell on the database container.
