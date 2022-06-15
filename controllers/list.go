@@ -50,11 +50,10 @@ func CreateTodoList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Convert persisted data into JSON for front-end.
-	json, _ := json.Marshal(result)
+	url := fmt.Sprintf("%s/%s", r.URL.Path, *result)
 
-	w.WriteHeader(http.StatusOK)
-	w.Write(json)
+	w.Header().Set("Content-Location", url)
+	w.WriteHeader(http.StatusCreated)
 }
 
 func DeleteTodoListByID(w http.ResponseWriter, r *http.Request) {
