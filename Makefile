@@ -29,7 +29,7 @@ db-shell:
 		"bash"
 
 # Opens Mongo Shell on the database container.
-db-mongosh-admin:
+db-mongosh:
 	docker exec -it ${GOLANG_TODOLIST_MONGO_DOCKER_CONTAINER_NAME} \
 		bash -c 'mongosh mongodb://${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_USERNAME}:${GOLANG_TODOLIST_MONGO_DATABASE_ROOT_PASSWORD}@127.0.0.1:27017/admin'
 
