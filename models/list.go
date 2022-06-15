@@ -71,13 +71,21 @@ func GetTodoLists() []TodoList {
 }
 
 func GetTodoListByID(id string) *TodoList {
-	for _, value := range db {
-		if id == *value.ID {
-			return &value
-		}
+	// Convert ID to ObjectID.
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil
 	}
 
-	return nil
+	filter := bson.M{"_id": objectID}
+
+	var result TodoList
+	err = coll.FindOne(context.TODO(), filter).Decode(&result)
+	if err != nil {
+		return nil
+	}
+
+	return &result
 }
 
 func DeleteTodoListByID(id string) error {
