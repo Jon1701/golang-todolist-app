@@ -22,7 +22,7 @@ where `listID` is a UUID associated with a specific Todo List.
 
 ```
 {
-  "id": "0c71252b-0405-4b8b-89ab-4d49da812449",
+  "id": "62ab7f67ffe8a97663fc2283",
   "name":"Golang Todo List",
   "items":[
     {
@@ -35,7 +35,7 @@ where `listID` is a UUID associated with a specific Todo List.
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Ignored in Request Body | Unique Identifier for the Todo List |
+| `id` | `string` (Converts to a MongoDB ObjectID) | Ignored in Request Body | Unique Identifier for the Todo List. |
 | `name` | `string` | Yes | Name of the list. Limited to 255 characters in length |
 | `items` | `[]Item` | No | Array of Todo List Items |
 | `items[0]` | `Item` | No | Todo List Item (`[]Item`) |
