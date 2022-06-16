@@ -161,7 +161,18 @@ func UpdateTodoListByID(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Persist into the database.
-	result, _ := parsedBody.UpdateTodoListByID(l.ID)
+	result, err := parsedBody.UpdateTodoListByID(*l.ID)
+	if err != nil {
+		e := GenericHTTPError{
+			Message: "Unable to update",
+		}
+
+		j, _ := json.Marshal(e)
+
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write(j)
+		return
+	}
 
 	// Return updated value to front-end.
 	j, _ := json.Marshal(result)

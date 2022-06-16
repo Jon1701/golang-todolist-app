@@ -109,17 +109,7 @@ func DeleteTodoListByID(id string) error {
 	return nil
 }
 
-func (l *TodoList) UpdateTodoListByID(id *string) (TodoList, error) {
-	// Get the ID of the matching Todo list.
-	matchingIndex := -1
-
-	// Get the index of the Todolist in the database.
-	for index, value := range db {
-		if value.ID == id {
-			matchingIndex = index
-		}
-	}
-
+func (l *TodoList) UpdateTodoListByID(id string) (*TodoList, error) {
 	// Iterate over the Todo List Items
 	for index := 0; index < len(l.Items); index++ {
 		// Explicitly set IsComplete status.
@@ -129,9 +119,24 @@ func (l *TodoList) UpdateTodoListByID(id *string) (TodoList, error) {
 		}
 	}
 
-	// Update fields.
-	db[matchingIndex].Name = l.Name
-	db[matchingIndex].Items = l.Items
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
 
-	return db[matchingIndex], nil
+	filter := bson.M{"_id": objectID}
+
+	result, err := coll.ReplaceOne(context.TODO(), filter, l)
+	if err != nil {
+		return nil, err
+	}
+
+	if result.ModifiedCount != 1 {
+		return nil, errors.New("nothing to modify")
+	}
+
+	// Get updated todo list.
+	u := GetTodoListByID(id)
+
+	return u, nil
 }
