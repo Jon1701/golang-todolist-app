@@ -89,21 +89,22 @@ func GetTodoListByID(id string) *TodoList {
 }
 
 func DeleteTodoListByID(id string) error {
-	// Index of the matching todo list.
-	matchingIndex := -1
-
-	for i, value := range db {
-		if *value.ID == id {
-			matchingIndex = i
-		}
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return err
 	}
 
-	if matchingIndex < 0 {
-		return errors.New("list not found")
+	filter := bson.M{"_id": objectID}
+
+	res, err := coll.DeleteOne(context.TODO(), filter)
+
+	if res.DeletedCount == 0 {
+		return errors.New("not found")
 	}
 
-	// Remove matching element.
-	db = append(db[:matchingIndex], db[matchingIndex+1:]...)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
