@@ -7,9 +7,11 @@ GOLANG_TODOLIST_MONGO_APP_USERNAME=appuser
 GOLANG_TODOLIST_MONGO_APP_PASSWORD=appuser
 
 # Starts the Go application.
-run:
+run-server:
+	@echo "Starting Golang server..."
 	MONGO_CONN_STRING="mongodb://${GOLANG_TODOLIST_MONGO_APP_USERNAME}:${GOLANG_TODOLIST_MONGO_APP_PASSWORD}@localhost:27017/${GOLANG_TODOLIST_MONGO_DATABASE_NAME}" \
 		go run cmd/web/main.go
+	@echo "Done starting Golang server"
 
 # Starts application services.
 start-services:
@@ -51,5 +53,5 @@ wait-5s:
 	@sleep 5s
 	@echo "Done waiting"
 
-# Restarts all services and creates application user in MongoDB.
-start: stop-services start-services wait-5s create-mongodb-application-user
+# Starts application services and server
+start: stop-services start-services wait-5s create-mongodb-application-user run-server
