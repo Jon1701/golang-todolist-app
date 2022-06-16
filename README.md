@@ -4,6 +4,15 @@
 
 This is yet another todo list application, but...written in Golang!
 
+## Requirements
+
+- [Go v1.18.3](https://go.dev/)
+- [Docker v20.10.17](https://www.docker.com/)
+  - [Docker Compose v2.6.0](https://www.docker.com/)
+- [Node Version Manager v0.39.1](https://github.com/nvm-sh/nvm)
+  - [nvm Deep Shell Integration](https://github.com/nvm-sh/nvm#deeper-shell-integration)
+  - [Node.js v16.15.1 LTS](https://github.com/nvm-sh/nvm#long-term-support)
+
 ## API Documentation
 
 ### Endpoints
