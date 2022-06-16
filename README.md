@@ -13,7 +13,7 @@ This is yet another todo list application, but...written in Golang!
 | GET | `/api/list` | Gets all Todo Lists | 
 | POST | `/api/list` | Creates a new Todo List | 
 | GET | `/api/list/{listID}` | Gets a specific Todo List by ID | 
-| PATCH | `/api/list/{listID}` | Updates an existing Todo List by ID | 
+| PUT | `/api/list/{listID}` | Replaces an existing Todo List by ID | 
 | DELETE | `/api/list/{listID}` | Deletes a specific Todo List by ID | 
 
 where `listID` is a UUID associated with a specific Todo List.
