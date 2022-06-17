@@ -10,6 +10,9 @@ install-node-dependencies:
 	@npm ci
 	@echo Done installing Node dependencies
 
+# Run all linters.
+lint: lint-js
+
 # Lint JavaScript files.
 lint-js:
 	@echo "Linting JavaScript..."
