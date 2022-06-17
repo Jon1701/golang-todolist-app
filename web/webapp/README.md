@@ -9,4 +9,5 @@ Front-end for the Golang Todo List App
 The following `make` targets are available:
 
 - `make install-node-dependencies` to install Node.js dependencies
+- `make lint-js` to run static code analysis on JavaScript
 - `make dev` to start the development server

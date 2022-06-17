@@ -10,6 +10,12 @@ install-node-dependencies:
 	@npm ci
 	@echo Done installing Node dependencies
 
+# Lint JavaScript files.
+lint-js:
+	@echo "Linting JavaScript..."
+	@${PATH_TO_NODE_BIN}/next lint
+	@echo "Done linting JavaScript"
+
 # Starts development server
 dev:
 	@echo "Starting development server..."
