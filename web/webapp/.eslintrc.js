@@ -1,18 +1,16 @@
 module.exports = {
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "tsconfigRootDir": __dirname,
-    "project": ["./tsconfig.json"]
+  root: true,
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ["./tsconfig.json"],
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
-  "extends": [
+  plugins: ["@typescript-eslint"],
+  extends: [
     "next/core-web-vitals",
     "airbnb-typescript",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier"
+    "prettier",
   ],
-  ignorePatterns: ['.eslintrc.js']
-}
+  ignorePatterns: [".eslintrc.js", "next.config.js"],
+};
