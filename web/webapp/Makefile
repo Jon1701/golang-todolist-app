@@ -11,13 +11,19 @@ install-node-dependencies:
 	@echo Done installing Node dependencies
 
 # Run all linters.
-lint: lint-js
+lint: run-eslint run-prettier
 
-# Lint JavaScript files.
-lint-js:
-	@echo "Linting JavaScript..."
+# Run ESLint.
+run-eslint:
+	@echo "Running ESLint..."
 	@${PATH_TO_NODE_BIN}/next lint
-	@echo "Done linting JavaScript"
+	@echo "Done running ESLint"
+
+# Run Prettier.
+run-prettier:
+	@echo "Running Prettier..."
+	@${PATH_TO_NODE_BIN}/prettier --check **/*.{ts,tsx,js}
+	@echo "Done running Prettier"
 
 # Starts development server
 dev:
