@@ -17,7 +17,8 @@
     "baseUrl": "./",
     "paths": {
       "@interfaces/*": ["interfaces/*"],
-      "@fetch/*": ["fetch/*"]
+      "@fetch/*": ["fetch/*"],
+      "@components/*": ["components/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
