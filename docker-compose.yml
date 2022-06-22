@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   mongodb:
     container_name: ${MONGO_DOCKER_CONTAINER_NAME}
@@ -9,3 +9,5 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./.volumes/mongodb:/data/db
