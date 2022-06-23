@@ -18,46 +18,31 @@ interface ItemDescriptionPayload {
   description: string;
 }
 
-interface SetNameActionCreator {
-  /**
-   * Action Type.
-   */
+interface ActionCreator {
   type: ActionTypes;
+  payload: any;
+}
 
+interface SetNameActionCreator extends ActionCreator {
   /**
    * Name of the Todo List.
    */
   payload: string;
 }
 
-interface SetNewBlankItemActionCreator {
-  /**
-   * Action Type.
-   */
-  type: ActionTypes;
-
+interface SetNewBlankItemActionCreator extends ActionCreator {
   /**
    * TodoList item.
    */
   payload: TodoListItem;
 }
 
-interface SetItemDescriptionActionCreator {
-  /**
-   * Action Type.
-   */
-  type: ActionTypes;
-
+interface SetItemDescriptionActionCreator extends ActionCreator {
   /**
    * Item Description payload.
    */
   payload: ItemDescriptionPayload;
 }
-
-type ActionCreator =
-  | SetNameActionCreator
-  | SetNewBlankItemActionCreator
-  | SetItemDescriptionActionCreator;
 
 /**
  * Creates the SET_NAME Action.
@@ -92,4 +77,10 @@ const SetItemDescription = (
 });
 
 export { ActionTypes, setName, setNewBlankItem, SetItemDescription };
-export type { ActionCreator, SetNameActionCreator, ItemDescriptionPayload };
+export type {
+  ActionCreator,
+  SetNameActionCreator,
+  SetNewBlankItemActionCreator,
+  SetItemDescriptionActionCreator,
+  ItemDescriptionPayload,
+};
