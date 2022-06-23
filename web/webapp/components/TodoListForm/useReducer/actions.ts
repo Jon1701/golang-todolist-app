@@ -6,6 +6,18 @@ enum ActionTypes {
   SetItemDescription = "SET_ITEM_DESCRIPTION",
 }
 
+interface ItemDescriptionPayload {
+  /**
+   * TodoList Item ID.
+   */
+  id: string;
+
+  /**
+   * Description of the TodoList Item.
+   */
+  description: string;
+}
+
 interface SetNameActionCreator {
   /**
    * Action Type.
@@ -37,9 +49,9 @@ interface SetItemDescriptionActionCreator {
   type: ActionTypes;
 
   /**
-   * TodoList item.
+   * Item Description payload.
    */
-  payload: TodoListItem;
+  payload: ItemDescriptionPayload;
 }
 
 type ActionCreator =
@@ -69,15 +81,15 @@ const setNewBlankItem = (item: TodoListItem): SetNewBlankItemActionCreator => ({
 
 /**
  * Creates the SET_ITEM_DESCRIPTION Action.
- * @param item TodoList Item.
+ * @param payload Item Description Payload.
  * @returns Action Creator.
  */
 const SetItemDescription = (
-  item: TodoListItem
+  item: ItemDescriptionPayload
 ): SetItemDescriptionActionCreator => ({
   type: ActionTypes.SetItemDescription,
   payload: item,
 });
 
 export { ActionTypes, setName, setNewBlankItem, SetItemDescription };
-export type { ActionCreator, SetNameActionCreator };
+export type { ActionCreator, SetNameActionCreator, ItemDescriptionPayload };
