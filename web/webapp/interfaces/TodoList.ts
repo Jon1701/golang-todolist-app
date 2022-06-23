@@ -1,10 +1,11 @@
 interface TodoList {
-  id: string;
+  id?: string;
   name: string;
   items?: Array<TodoListItem>;
 }
 
 interface TodoListItem {
+  id?: string;
   description: string;
   isComplete: boolean;
 }
