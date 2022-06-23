@@ -19,22 +19,33 @@ const todoListReducer = (state: TodoList, action: ActionCreator) => {
       return { ...state, items };
     }
 
-    case ActionTypes.SetItemDescription:
-      {
-        // Create copy of items array.
-        const items = state.items.slice();
+    case ActionTypes.SetItemDescription: {
+      // Create copy of items array.
+      const items = state.items.slice();
 
-        // Get index of the given TodoList item in the items array.
-        const idx: number = items.findIndex(
-          (currentItem: TodoListItem) => currentItem.id === action.payload.id
-        );
+      // Get index of the given TodoList item in the items array.
+      const idx: number = items.findIndex(
+        (currentItem: TodoListItem) => currentItem.id === action.payload.id
+      );
 
-        items[idx].description = action.payload.description;
+      items[idx].description = action.payload.description;
 
-        return { ...state, items };
-      }
+      return { ...state, items };
+    }
 
-      return;
+    case ActionTypes.SetItemIsComplete: {
+      // Create copy of items array.
+      const items = state.items.slice();
+
+      // Get index of the given TodoList item in the items array.
+      const idx: number = items.findIndex(
+        (currentItem: TodoListItem) => currentItem.id === action.payload.id
+      );
+
+      items[idx].isComplete = action.payload.isComplete;
+
+      return { ...state, items };
+    }
 
     default:
       return state;
