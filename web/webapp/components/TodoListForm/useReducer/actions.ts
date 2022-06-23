@@ -4,18 +4,7 @@ enum ActionTypes {
   SetName = "SET_NAME",
   SetNewBlankItem = "SET_NEW_BLANK_ITEM",
   SetItemDescription = "SET_ITEM_DESCRIPTION",
-}
-
-interface ItemDescriptionPayload {
-  /**
-   * TodoList Item ID.
-   */
-  id: string;
-
-  /**
-   * Description of the TodoList Item.
-   */
-  description: string;
+  SetItemIsComplete = "SET_ITEM_IS_COMPLETE",
 }
 
 interface ActionCreator {
@@ -42,6 +31,37 @@ interface SetItemDescriptionActionCreator extends ActionCreator {
    * Item Description payload.
    */
   payload: ItemDescriptionPayload;
+}
+
+interface SetItemIsCompleteActionCreator extends ActionCreator {
+  /**
+   * Item Description payload.
+   */
+  payload: ItemIsCompletePayload;
+}
+
+interface ItemDescriptionPayload {
+  /**
+   * TodoList Item ID.
+   */
+  id: string;
+
+  /**
+   * Description of the TodoList Item.
+   */
+  description: string;
+}
+
+interface ItemIsCompletePayload {
+  /**
+   * TodoList Item ID.
+   */
+  id: string;
+
+  /**
+   * Indicates if the Item is completed.
+   */
+  isComplete: boolean;
 }
 
 /**
@@ -76,11 +96,31 @@ const SetItemDescription = (
   payload: item,
 });
 
-export { ActionTypes, setName, setNewBlankItem, SetItemDescription };
+/**
+ * Creates the SET_ITEM_IS_COMPLETE Action.
+ * @param item Payload.
+ * @returns Action Creator.
+ */
+const setItemIsComplete = (
+  item: ItemIsCompletePayload
+): SetItemIsCompleteActionCreator => ({
+  type: ActionTypes.SetItemIsComplete,
+  payload: item,
+});
+
+export {
+  ActionTypes,
+  setName,
+  setNewBlankItem,
+  SetItemDescription,
+  setItemIsComplete,
+};
 export type {
   ActionCreator,
   SetNameActionCreator,
   SetNewBlankItemActionCreator,
   SetItemDescriptionActionCreator,
+  SetItemIsCompleteActionCreator,
   ItemDescriptionPayload,
+  ItemIsCompletePayload,
 };
