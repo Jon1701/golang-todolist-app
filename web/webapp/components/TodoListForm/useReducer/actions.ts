@@ -5,6 +5,7 @@ enum ActionTypes {
   SetNewBlankItem = "SET_NEW_BLANK_ITEM",
   SetItemDescription = "SET_ITEM_DESCRIPTION",
   SetItemIsComplete = "SET_ITEM_IS_COMPLETE",
+  DeleteItem = "DELETE_ITEM",
 }
 
 interface ActionCreator {
@@ -38,6 +39,13 @@ interface SetItemIsCompleteActionCreator extends ActionCreator {
    * Item Description payload.
    */
   payload: ItemIsCompletePayload;
+}
+
+interface DeleteItemActionCreator extends ActionCreator {
+  /**
+   * ID of the TodoList Item to delete.
+   */
+  payload: string;
 }
 
 interface ItemDescriptionPayload {
@@ -108,12 +116,23 @@ const setItemIsComplete = (
   payload: item,
 });
 
+/**
+ * Creates the DELETE_ITEM Action.
+ * @param id ID of the item to delete.
+ * @returns Action Creator.
+ */
+const deleteItem = (id: string): DeleteItemActionCreator => ({
+  type: ActionTypes.DeleteItem,
+  payload: id,
+});
+
 export {
   ActionTypes,
   setName,
   setNewBlankItem,
   SetItemDescription,
   setItemIsComplete,
+  deleteItem,
 };
 export type {
   ActionCreator,
@@ -121,6 +140,7 @@ export type {
   SetNewBlankItemActionCreator,
   SetItemDescriptionActionCreator,
   SetItemIsCompleteActionCreator,
+  DeleteItemActionCreator,
   ItemDescriptionPayload,
   ItemIsCompletePayload,
 };
