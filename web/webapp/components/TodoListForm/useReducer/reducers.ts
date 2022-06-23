@@ -13,6 +13,11 @@ const todoListReducer = (state: TodoList, action: ActionCreator) => {
     case ActionTypes.SetName:
       return { ...state, name: action.payload };
 
+    case ActionTypes.SetNewBlankItem:
+      const items = state.items?.slice() || [];
+      items.push(action.payload);
+      return { ...state, items };
+
     default:
       return state;
   }
