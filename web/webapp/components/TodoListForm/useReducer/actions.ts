@@ -3,6 +3,7 @@ import { TodoListItem } from "@interfaces/TodoList";
 enum ActionTypes {
   SetName = "SET_NAME",
   SetNewBlankItem = "SET_NEW_BLANK_ITEM",
+  SetItemDescription = "SET_ITEM_DESCRIPTION",
 }
 
 interface SetNameActionCreator {
@@ -29,7 +30,22 @@ interface SetNewBlankItemActionCreator {
   payload: TodoListItem;
 }
 
-type ActionCreator = SetNameActionCreator | SetNewBlankItemActionCreator;
+interface SetItemDescriptionActionCreator {
+  /**
+   * Action Type.
+   */
+  type: ActionTypes;
+
+  /**
+   * TodoList item.
+   */
+  payload: TodoListItem;
+}
+
+type ActionCreator =
+  | SetNameActionCreator
+  | SetNewBlankItemActionCreator
+  | SetItemDescriptionActionCreator;
 
 /**
  * Creates the SET_NAME Action.
@@ -51,5 +67,17 @@ const setNewBlankItem = (item: TodoListItem): SetNewBlankItemActionCreator => ({
   payload: item,
 });
 
-export { ActionTypes, setName, setNewBlankItem };
+/**
+ * Creates the SET_ITEM_DESCRIPTION Action.
+ * @param item TodoList Item.
+ * @returns Action Creator.
+ */
+const SetItemDescription = (
+  item: TodoListItem
+): SetItemDescriptionActionCreator => ({
+  type: ActionTypes.SetItemDescription,
+  payload: item,
+});
+
+export { ActionTypes, setName, setNewBlankItem, SetItemDescription };
 export type { ActionCreator, SetNameActionCreator };
