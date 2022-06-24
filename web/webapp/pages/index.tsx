@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { getTodoLists, ResponseCodes } from "@fetch/list";
+import { getTodoLists, ResponseCodes } from "@fetch/list/get";
 import { TodoList } from "@interfaces/TodoList";
 import DisplayLists from "@components/DisplayLists";
 import Panel from "@components/Panel";
