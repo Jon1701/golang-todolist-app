@@ -97,7 +97,7 @@ const setNewBlankItem = (item: TodoListItem): SetNewBlankItemActionCreator => ({
  * @param payload Item Description Payload.
  * @returns Action Creator.
  */
-const SetItemDescription = (
+const setItemDescription = (
   item: ItemDescriptionPayload
 ): SetItemDescriptionActionCreator => ({
   type: ActionTypes.SetItemDescription,
@@ -130,7 +130,7 @@ export {
   ActionTypes,
   setName,
   setNewBlankItem,
-  SetItemDescription,
+  setItemDescription,
   setItemIsComplete,
   deleteItem,
 };
