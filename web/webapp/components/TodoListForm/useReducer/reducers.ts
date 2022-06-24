@@ -1,5 +1,6 @@
-import { ActionTypes, ActionCreator } from "./actions";
 import { TodoList, TodoListItem } from "@interfaces/TodoList";
+
+import { ActionTypes, ActionCreator } from "./actions";
 
 /**
  * Modifies the TodoList state.
@@ -43,6 +44,21 @@ const todoListReducer = (state: TodoList, action: ActionCreator) => {
       );
 
       items[idx].isComplete = action.payload.isComplete;
+
+      return { ...state, items };
+    }
+
+    case ActionTypes.DeleteItem: {
+      // Create copy of items array.
+      const items = state.items.slice();
+
+      // Get index of the given TodoList item in the items array.
+      const idx: number = items.findIndex(
+        (currentItem: TodoListItem) => currentItem.id === action.payload
+      );
+
+      // Delete element at given index.
+      items.splice(idx, 1);
 
       return { ...state, items };
     }
