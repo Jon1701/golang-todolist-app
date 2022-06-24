@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+import { DangerAlert } from "@components/Alert";
 import { getTodoLists, ResponseCodes } from "@fetch/list/get";
 import { TodoList } from "@interfaces/TodoList";
 import DisplayLists from "@components/DisplayLists";
-import Panel from "@components/Panel";
 import LoadingSpinner from "@components/LoadingSpinner";
+import Panel from "@components/Panel";
 
 enum ContentCodes {
   Loading = "LOADING",
@@ -35,13 +36,6 @@ const Content = styled.div`
  */
 const H1 = styled.h1`
   margin-top: 0;
-`;
-
-/**
- * Container for error messages.
- */
-const ContainerErrorMessage = styled.div`
-  text-align: center;
 `;
 
 /**
@@ -139,9 +133,9 @@ const IndexPage: React.FC = () => {
 
       default:
         return (
-          <ContainerErrorMessage>
+          <DangerAlert style={{ margin: "0px" }}>
             An unknown error occurred.
-          </ContainerErrorMessage>
+          </DangerAlert>
         );
     }
   };
