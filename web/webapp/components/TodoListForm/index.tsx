@@ -28,6 +28,11 @@ import ValidationMessage from "./components/ValidationMessage";
 
 interface TodoListFormProps {
   /**
+   * Alerts to be rendered.
+   */
+  JSXAlerts?: React.ReactElement;
+
+  /**
    * Dispatch function.
    */
   dispatch: React.Dispatch<any>;
@@ -64,14 +69,17 @@ interface TodoListFormProps {
  * Form for creating a Todo List.
  *
  * @param props Component props.
+ * @param props.JSXAlerts Any alerts to be rendered.
  * @param props.dispatch Dispatch function.
  * @param props.formValues Form values object.
  * @param props.validationResults Field validation results.
  * @param props.setValidationResults Sets the field validation results object.
  * @param props.handleSubmit Form submission handler.
+ * @param props.pathCancelButton Path for the Cancel button.
  * @returns Form.
  */
 const TodoListForm: React.FC<TodoListFormProps> = ({
+  JSXAlerts,
   dispatch,
   formValues,
   validationResults,
@@ -107,6 +115,8 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
   return (
     <Form onSubmit={handleSubmit}>
       <ActionButtons pathCancelButton={pathCancelButton} />
+
+      {JSXAlerts}
 
       <ContainerField>
         <Label htmlFor="todolist-list-name" isRequired>
