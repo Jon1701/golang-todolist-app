@@ -53,6 +53,11 @@ interface TodoListFormProps {
    * Form submission handler.
    */
   handleSubmit: (e: React.SyntheticEvent) => void;
+
+  /**
+   * Path for the Cancel button.
+   */
+  pathCancelButton?: string;
 }
 
 /**
@@ -72,6 +77,7 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
   validationResults,
   setValidationResults,
   handleSubmit,
+  pathCancelButton,
 }) => {
   /**
    * Generates a default TodoList Item.
@@ -100,7 +106,7 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <ActionButtons />
+      <ActionButtons pathCancelButton={pathCancelButton} />
 
       <ContainerField>
         <Label htmlFor="todolist-list-name" isRequired>
