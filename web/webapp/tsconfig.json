@@ -18,7 +18,8 @@
     "paths": {
       "@interfaces/*": ["interfaces/*"],
       "@fetch/*": ["fetch/*"],
-      "@components/*": ["components/*"]
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
