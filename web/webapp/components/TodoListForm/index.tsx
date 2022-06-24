@@ -43,6 +43,13 @@ interface TodoListFormProps {
   validationResults: undefined | TodoList;
 
   /**
+   * Sets the field validation results object.
+   */
+  setValidationResults: React.Dispatch<
+    React.SetStateAction<TodoList | undefined>
+  >;
+
+  /**
    * Form submission handler.
    */
   handleSubmit: (e: React.SyntheticEvent) => void;
@@ -55,13 +62,15 @@ interface TodoListFormProps {
  * @param props.dispatch Dispatch function.
  * @param props.formValues Form values object.
  * @param props.validationResults Field validation results.
- * @param  props.handleSubmit Form submission handler.
+ * @param props.setValidationResults Sets the field validation results object.
+ * @param props.handleSubmit Form submission handler.
  * @returns Form.
  */
 const TodoListForm: React.FC<TodoListFormProps> = ({
   dispatch,
   formValues,
   validationResults,
+  setValidationResults,
   handleSubmit,
 }) => {
   /**
@@ -152,6 +161,7 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
                 <ContainerDelete>
                   <DeleteButton
                     handleClick={() => {
+                      setValidationResults(undefined);
                       dispatch(deleteItem(item.id));
                     }}
                   />
