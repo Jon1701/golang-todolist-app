@@ -29,32 +29,38 @@ interface HTTPResponse {
  *
  * @returns {Promise<HTTPResponse>} Result of the request.
  */
-const getTodoLists = async (): Promise<HTTPResponse> => {
-  return fetch("/api/list", { method: "GET" })
-    .then((response: Response) => response.json())
-    .then((data: Array<TodoList>) => {
+const get = async (): Promise<HTTPResponse> => {
+  const response = await fetch("/api/list", { method: "GET" });
+
+  const data = await response.json();
+
+  switch (response.status) {
+    case 200: {
       if (data.length === 0) {
-        const res: HTTPResponse = {
+        const r: HTTPResponse = {
           responseCode: ResponseCodes.NoData,
         };
-        return res;
+
+        return r;
       }
 
-      const res: HTTPResponse = {
+      const r: HTTPResponse = {
         responseCode: ResponseCodes.Success,
         body: data,
       };
 
-      return res;
-    })
-    .catch(() => {
-      const res: HTTPResponse = {
+      return r;
+    }
+
+    default: {
+      const r: HTTPResponse = {
         responseCode: ResponseCodes.UnknownError,
       };
 
-      return res;
-    });
+      return r;
+    }
+  }
 };
 
-export { getTodoLists, ResponseCodes };
+export { get, ResponseCodes };
 export type { HTTPResponse };

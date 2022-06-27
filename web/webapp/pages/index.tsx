@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { DangerAlert } from "@components/Alert";
-import { getTodoLists, ResponseCodes } from "@fetch/list/get";
+import { get, ResponseCodes } from "@fetch/list/get";
 import { PrimaryLinkButton } from "@components/Buttons";
 import { TodoList } from "@interfaces/TodoList";
 import DisplayLists from "@components/DisplayLists";
@@ -68,7 +68,7 @@ const IndexPage: React.FC = () => {
     setContentCode(ContentCodes.Loading);
     setData([]);
 
-    const res = await getTodoLists();
+    const res = await get();
     switch (res.responseCode) {
       case ResponseCodes.NoData:
         setContentCode(ContentCodes.NoData);
