@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { ContentCodes } from "@pages/new";
-import { SuccessAlert } from "@components/Alert";
+import { DangerAlert, SuccessAlert } from "@components/Alert";
 import LoadingSpinner from "@components/LoadingSpinner";
 
 interface DisplayContentProps {
@@ -25,6 +25,9 @@ const Container = styled.div`
   text-align: center;
 `;
 
+/**
+ * Custom link.
+ */
 const CustomLink = styled.a`
   font-weight: 700;
   text-decoration: underline;
@@ -64,7 +67,7 @@ const DisplayContent: React.FC<DisplayContentProps> = ({
       break;
 
     default:
-      node = <div>An Unknown Error occurred.</div>;
+      node = <DangerAlert>An unknown error occurred.</DangerAlert>;
       break;
   }
 

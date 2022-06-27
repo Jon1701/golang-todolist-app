@@ -1,20 +1,24 @@
 import React, { useState, useReducer } from "react";
 import styled from "styled-components";
 
-import { DangerAlert } from "@components/Alert";
 import { DisplayContent } from "@components/_pages/new/DisplayContent";
 import { postTodoList, HTTPResponse, ResponseCodes } from "@fetch/list/post";
 import { TodoList } from "@interfaces/TodoList";
+import DisplayAlert from "@components/_pages/new/DisplayAlert";
 import Panel from "@components/Panel";
 import removeIDs from "@util/generateItemIDs/removeIDs";
 import TodoListForm from "@components/TodoListForm";
 import todoListReducer from "@components/TodoListForm/useReducer/reducers";
 
+enum AlertCodes {
+  InvalidFieldValues = "INVALID_FIELD_VALUES",
+  UnknownError = "UNKNOWN_ERROR",
+}
+
 enum ContentCodes {
   Loading = "LOADING",
   ShowForm = "SHOW_FORM",
   Success = "SUCCESS",
-  UnknownError = "UNKNOWN_ERROR",
 }
 
 /**
@@ -52,11 +56,6 @@ const defaultValues: TodoList = {
  * @returns Page.
  */
 const CreateNewTodoListPage = () => {
-  // UI content.
-  const [contentCode, setContentCode] = useState<ContentCodes>(
-    ContentCodes.ShowForm
-  );
-
   // Form values.
   const [formValues, dispatch] = useReducer(todoListReducer, defaultValues);
 
@@ -65,6 +64,14 @@ const CreateNewTodoListPage = () => {
     TodoList | undefined
   >(undefined);
 
+  // Alert content.
+  const [alertCode, setAlertCode] = useState<AlertCodes | undefined>(undefined);
+
+  // UI content.
+  const [contentCode, setContentCode] = useState<ContentCodes>(
+    ContentCodes.ShowForm
+  );
+
   /**
    * Form submission handler.
    *
@@ -72,6 +79,7 @@ const CreateNewTodoListPage = () => {
    */
   const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     setContentCode(ContentCodes.Loading);
+    setAlertCode(undefined);
     setValidationResults(undefined);
 
     e.preventDefault();
@@ -86,30 +94,15 @@ const CreateNewTodoListPage = () => {
 
       case ResponseCodes.InvalidFieldValues:
         setValidationResults(res.body);
+        setAlertCode(AlertCodes.InvalidFieldValues);
         setContentCode(ContentCodes.ShowForm);
         break;
 
       default:
-        setContentCode(ContentCodes.UnknownError);
+        setAlertCode(AlertCodes.UnknownError);
+        setContentCode(ContentCodes.ShowForm);
         break;
     }
-  };
-
-  /**
-   * Displays alerts.
-   *
-   * @returns Alerts.
-   */
-  const Alerts: React.FC = (): React.ReactElement | null => {
-    if (validationResults !== undefined) {
-      return <DangerAlert>Invalid values provided.</DangerAlert>;
-    }
-
-    if (contentCode === ContentCodes.UnknownError) {
-      return <DangerAlert>An unknown error occurred.</DangerAlert>;
-    }
-
-    return null;
   };
 
   return (
@@ -119,12 +112,11 @@ const CreateNewTodoListPage = () => {
           <H1>Create New Todo List</H1>
 
           {contentCode === ContentCodes.Success ||
-          contentCode === ContentCodes.Loading ||
-          contentCode === ContentCodes.UnknownError ? (
+          contentCode === ContentCodes.Loading ? (
             <DisplayContent code={contentCode} pathToAllTodoLists="/" />
           ) : (
             <TodoListForm
-              JSXAlerts={<Alerts />}
+              JSXAlerts={alertCode ? <DisplayAlert code={alertCode} /> : null}
               dispatch={dispatch}
               handleSubmit={handleSubmit}
               formValues={formValues}
@@ -140,4 +132,4 @@ const CreateNewTodoListPage = () => {
 };
 
 export default CreateNewTodoListPage;
-export { ContentCodes };
+export { AlertCodes, ContentCodes };
