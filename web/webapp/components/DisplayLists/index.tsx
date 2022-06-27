@@ -1,6 +1,7 @@
 import React from "react";
 
 import { TodoList, TodoListItem } from "@interfaces/TodoList";
+import { SecondaryLinkButton } from "@components/Buttons";
 
 import Container from "./styles/Container";
 import Divider from "./components/Divider";
@@ -51,17 +52,28 @@ const DisplayLists: React.FC<Props> = ({ data }) => {
           return (
             <React.Fragment key={todolist.id}>
               <ListItem>
-                <Name isCompleted={isCompleted}>{todolist.name}</Name>
+                <div>
+                  <Name isCompleted={isCompleted}>{todolist.name}</Name>
 
-                <Metadata isCompleted={isCompleted}>
-                  {numItems > 0 ? (
-                    <React.Fragment>
-                      {numCompleted} of {numItems} completed
-                    </React.Fragment>
-                  ) : (
-                    <React.Fragment>No items</React.Fragment>
-                  )}
-                </Metadata>
+                  <Metadata isCompleted={isCompleted}>
+                    {numItems > 0 ? (
+                      <React.Fragment>
+                        {numCompleted} of {numItems} completed
+                      </React.Fragment>
+                    ) : (
+                      <React.Fragment>No items</React.Fragment>
+                    )}
+                  </Metadata>
+                </div>
+
+                <div>
+                  <SecondaryLinkButton
+                    href={`/update/${todolist.id}`}
+                    style={{ padding: "5px" }}
+                  >
+                    🗒️
+                  </SecondaryLinkButton>
+                </div>
               </ListItem>
 
               <Divider />
