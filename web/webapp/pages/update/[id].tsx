@@ -16,7 +16,7 @@ import DisplayAlert from "@components/_pages/id/DisplayAlert";
 import DisplayContent from "@components/_pages/id/DisplayContent";
 import generateItemIDs from "@util/generateItemIDs";
 import Panel from "@components/Panel";
-import removeIDs from "@util/generateItemIDs/removeIDs";
+import removeIDs from "@util/removeIDs";
 import TodoListForm from "@components/TodoListForm";
 import todoListReducer from "@components/TodoListForm/useReducer/reducers";
 
