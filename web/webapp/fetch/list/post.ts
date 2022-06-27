@@ -42,7 +42,7 @@ const postTodoList = async (todoList: TodoList): Promise<HTTPResponse> => {
 
         case 400: {
           const data: TodoList = await res.json();
-          console.log("Data", data);
+
           const r: HTTPResponse = {
             responseCode: ResponseCodes.InvalidFieldValues,
             body: data,
