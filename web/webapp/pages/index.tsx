@@ -138,3 +138,4 @@ const IndexPage: React.FC = () => {
 };
 
 export default IndexPage;
+export type { ContentCodes };
