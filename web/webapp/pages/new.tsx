@@ -2,7 +2,7 @@ import React, { useState, useReducer } from "react";
 import styled from "styled-components";
 
 import { DisplayContent } from "@components/_pages/new/DisplayContent";
-import { postTodoList, HTTPResponse, ResponseCodes } from "@fetch/list/post";
+import { post, HTTPResponse, ResponseCodes } from "@fetch/list/post";
 import { TodoList } from "@interfaces/TodoList";
 import DisplayAlert from "@components/_pages/new/DisplayAlert";
 import Panel from "@components/Panel";
@@ -86,7 +86,7 @@ const CreateNewTodoListPage = () => {
 
     const copy = removeIDs(formValues);
 
-    const res: HTTPResponse = await postTodoList(copy);
+    const res: HTTPResponse = await post(copy);
     switch (res.responseCode) {
       case ResponseCodes.Success:
         setContentCode(ContentCodes.Success);

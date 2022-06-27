@@ -29,40 +29,41 @@ interface HTTPResponse {
  *
  * @returns {Promise<HTTPResponse>} Result of the request.
  */
-const postTodoList = async (todoList: TodoList): Promise<HTTPResponse> => {
-  return fetch("/api/list", { method: "POST", body: JSON.stringify(todoList) })
-    .then(async (res: Response) => {
-      switch (res.status) {
-        case 201: {
-          const r: HTTPResponse = {
-            responseCode: ResponseCodes.Success,
-          };
-          return r;
-        }
+const post = async (todoList: TodoList): Promise<HTTPResponse> => {
+  const response = await fetch("/api/list", {
+    method: "POST",
+    body: JSON.stringify(todoList),
+  });
 
-        case 400: {
-          const data: TodoList = await res.json();
+  switch (response.status) {
+    case 201: {
+      const r: HTTPResponse = {
+        responseCode: ResponseCodes.Success,
+      };
 
-          const r: HTTPResponse = {
-            responseCode: ResponseCodes.InvalidFieldValues,
-            body: data,
-          };
-          return r;
-        }
+      return r;
+    }
 
-        default: {
-          throw new Error();
-        }
-      }
-    })
-    .catch(() => {
-      const res: HTTPResponse = {
+    case 400: {
+      const data = await response.json();
+
+      const r: HTTPResponse = {
+        responseCode: ResponseCodes.InvalidFieldValues,
+        body: data,
+      };
+
+      return r;
+    }
+
+    default: {
+      const r: HTTPResponse = {
         responseCode: ResponseCodes.UnknownError,
       };
 
-      return res;
-    });
+      return r;
+    }
+  }
 };
 
-export { postTodoList, ResponseCodes };
+export { post, ResponseCodes };
 export type { HTTPResponse };
