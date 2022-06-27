@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from "react";
-import styled from "styled-components";
 
+import { ContainerPage, ContainerContent, H1 } from "@components/Page";
 import { DisplayContent } from "@components/_pages/new/DisplayContent";
 import { post, HTTPResponse, ResponseCodes } from "@fetch/list/post";
 import { TodoList } from "@interfaces/TodoList";
@@ -20,30 +20,6 @@ enum ContentCodes {
   ShowForm = "SHOW_FORM",
   Success = "SUCCESS",
 }
-
-/**
- * Component container.
- */
-const Container = styled.main`
-  min-height: 100vh;
-`;
-
-/**
- * Container for the content.
- */
-const Content = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 25px 0;
-`;
-
-/**
- * Custom H1.
- */
-const H1 = styled.h1`
-  margin-top: 0;
-  margin-bottom: 0;
-`;
 
 // Default form values.
 const defaultValues: TodoList = {
@@ -106,8 +82,8 @@ const CreateNewTodoListPage = () => {
   };
 
   return (
-    <Container>
-      <Content>
+    <ContainerPage>
+      <ContainerContent>
         <Panel>
           <H1>Create New Todo List</H1>
 
@@ -126,8 +102,8 @@ const CreateNewTodoListPage = () => {
             />
           )}
         </Panel>
-      </Content>
-    </Container>
+      </ContainerContent>
+    </ContainerPage>
   );
 };
 

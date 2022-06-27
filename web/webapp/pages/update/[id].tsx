@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { NextRouter, useRouter } from "next/router";
-import styled from "styled-components";
 
+import { ContainerPage, ContainerContent, H1 } from "@components/Page";
 import {
   getSpecific,
   ResponseCodes as GetSpecificResponseCodes,
@@ -33,29 +33,6 @@ enum ContentCodes {
   ShowForm = "SHOW_FORM",
   UnknownError = "UNKNOWN_ERROR",
 }
-
-/**
- * Container for the page.
- */
-const Container = styled.main`
-  min-height: 100vh;
-`;
-
-/**
- * Container for the content.
- */
-const Content = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 25px 0;
-`;
-
-/**
- * Custom H1.
- */
-const H1 = styled.h1`
-  margin-top: 0;
-`;
 
 // Default Todo list.
 const defaultValues: TodoList = {
@@ -157,8 +134,8 @@ const UpdateTodoListPage: React.FC = () => {
   }, [id]);
 
   return (
-    <Container>
-      <Content>
+    <ContainerPage>
+      <ContainerContent>
         <Panel>
           {contentCode === ContentCodes.Loading ||
           contentCode === ContentCodes.NotFound ||
@@ -180,8 +157,8 @@ const UpdateTodoListPage: React.FC = () => {
             </React.Fragment>
           )}
         </Panel>
-      </Content>
-    </Container>
+      </ContainerContent>
+    </ContainerPage>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+import { ContainerPage, ContainerContent, H1 } from "@components/Page";
 import { DangerAlert } from "@components/Alert";
 import { get, ResponseCodes } from "@fetch/list/get";
 import { PrimaryLinkButton } from "@components/Buttons";
@@ -15,29 +16,6 @@ enum ContentCodes {
   NoData = "NO_DATA",
   UnknownError = "UNKNOWN_ERROR",
 }
-
-/**
- * Container for the page.
- */
-const Container = styled.main`
-  min-height: 100vh;
-`;
-
-/**
- * Container for the content.
- */
-const Content = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 25px 0;
-`;
-
-/**
- * Custom H1.
- */
-const H1 = styled.h1`
-  margin-top: 0;
-`;
 
 /**
  * Container for the panel header.
@@ -129,11 +107,11 @@ const IndexPage: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Content>
+    <ContainerPage>
+      <ContainerContent>
         <Panel>{renderSwitch(contentCode)}</Panel>
-      </Content>
-    </Container>
+      </ContainerContent>
+    </ContainerPage>
   );
 };
 
