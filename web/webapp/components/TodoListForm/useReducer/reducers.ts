@@ -11,6 +11,9 @@ import { ActionTypes, ActionCreator } from "./actions";
  */
 const todoListReducer = (state: TodoList, action: ActionCreator) => {
   switch (action.type) {
+    case ActionTypes.SetTodoList:
+      return action.payload;
+
     case ActionTypes.SetName:
       return { ...state, name: action.payload };
 
