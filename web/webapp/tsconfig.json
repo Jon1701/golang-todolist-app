@@ -19,7 +19,8 @@
       "@interfaces/*": ["interfaces/*"],
       "@fetch/*": ["fetch/*"],
       "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@util/*": ["util/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
