@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { DangerAlert } from "@components/Alert";
 import { getTodoLists, ResponseCodes } from "@fetch/list/get";
+import { PrimaryLinkButton } from "@components/Buttons";
 import { TodoList } from "@interfaces/TodoList";
 import DisplayLists from "@components/DisplayLists";
 import LoadingSpinner from "@components/LoadingSpinner";
@@ -44,21 +45,6 @@ const H1 = styled.h1`
 const ContainerHeader = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
-`;
-
-/**
- * Custom link.
- */
-const CustomLink = styled.a`
-  display: inline-block;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #000;
-
-  padding: 10px 15px;
-
-  background-color: #000;
-  color: #fff;
 `;
 
 /**
@@ -123,7 +109,9 @@ const IndexPage: React.FC = () => {
                 <H1>My Todo Lists</H1>
               </div>
               <div style={{ textAlign: "right" }}>
-                <CustomLink href="/new">+ Create New List</CustomLink>
+                <PrimaryLinkButton href="/new">
+                  + Create New Todo List
+                </PrimaryLinkButton>
               </div>
             </ContainerHeader>
 

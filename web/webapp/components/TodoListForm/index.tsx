@@ -11,6 +11,7 @@ import {
   ItemIsCompletePayload,
 } from "@components/TodoListForm/useReducer/actions";
 import { TodoList, TodoListItem } from "@interfaces/TodoList";
+import { PrimaryButton } from "@components/Buttons";
 
 import {
   ContainerListItem,
@@ -19,7 +20,6 @@ import {
   ContainerDelete,
 } from "./styles/ListItem";
 import ActionButtons from "./components/ActionButtons";
-import AddNewItemButton from "./components/AddNewItemButton";
 import DeleteButton from "./components/DeleteButton";
 import Form from "./styles/Form";
 import Input from "./styles/Input";
@@ -200,7 +200,13 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
       </ContainerField>
 
       <div style={{ marginTop: "25px" }}>
-        <AddNewItemButton handleClick={generateBlankItem} />
+        <PrimaryButton
+          type="button"
+          onClick={generateBlankItem}
+          style={{ width: "100%" }}
+        >
+          + Add New Item
+        </PrimaryButton>
       </div>
     </Form>
   );

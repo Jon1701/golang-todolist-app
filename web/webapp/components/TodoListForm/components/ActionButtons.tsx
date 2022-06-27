@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { PrimaryButton, SecondaryLinkButton } from "@components/Buttons";
+
 interface Props {
   /**
    * Path for the Cancel button.
@@ -22,45 +24,6 @@ const Container = styled.div`
 `;
 
 /**
- * Base button.
- */
-const Button = styled.button`
-  border-width: 1px;
-  border-color: #000;
-  border-style: solid;
-  padding: 10px 20px;
-
-  background-color: #000;
-
-  font-size: 0.9rem;
-  color: #fff;
-
-  cursor: pointer;
-`;
-
-/**
- * Styled Submit button.
- */
-const SubmitButton = styled(Button)``;
-
-/**
- * Styled Cancel button.
- */
-const CancelButton = styled.a`
-  border-style: solid;
-  border-width: 1px;
-  border-color: #000;
-  padding: 10px 20px;
-
-  background-color: #fff;
-
-  font-size: 0.9rem;
-  color: #000;
-
-  cursor: pointer;
-`;
-
-/**
  * Action buttons.
  *
  * @returns Action buttons.
@@ -68,10 +31,12 @@ const CancelButton = styled.a`
 const ActionButtons: React.FC<Props> = ({ pathCancelButton }) => {
   return (
     <Container>
-      <SubmitButton type="submit">💾 Save</SubmitButton>
+      <PrimaryButton type="submit">Save</PrimaryButton>
 
       {pathCancelButton ? (
-        <CancelButton href={pathCancelButton}>❌ Cancel</CancelButton>
+        <SecondaryLinkButton href={pathCancelButton}>
+          Cancel
+        </SecondaryLinkButton>
       ) : null}
     </Container>
   );

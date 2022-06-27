@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { PrimaryButton } from "@components/Buttons";
+
 interface Props {
   handleClick(): void;
 }
@@ -8,7 +10,7 @@ interface Props {
 /**
  * Styled Delete Item button.
  */
-const Container = styled.button`
+const Container = styled(PrimaryButton)`
   display: block;
   box-sizing: border-box;
   padding: 0;
@@ -16,11 +18,6 @@ const Container = styled.button`
   width: 100%;
   height: 100%;
 
-  border-radius: 0px;
-  border: none;
-  font-size: 1rem;
-
-  background-color: #f6f6f6;
   cursor: pointer;
 `;
 
@@ -33,7 +30,7 @@ const Container = styled.button`
  */
 const DeleteButton: React.FC<Props> = ({ handleClick }) => (
   <Container type="button" onClick={handleClick}>
-    🗑️
+    &#215;
   </Container>
 );
 
