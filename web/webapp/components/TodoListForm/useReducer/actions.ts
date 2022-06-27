@@ -1,6 +1,7 @@
-import { TodoListItem } from "@interfaces/TodoList";
+import { TodoList, TodoListItem } from "@interfaces/TodoList";
 
 enum ActionTypes {
+  SetTodoList = "SET_TODO_LIST",
   SetName = "SET_NAME",
   SetNewBlankItem = "SET_NEW_BLANK_ITEM",
   SetItemDescription = "SET_ITEM_DESCRIPTION",
@@ -11,6 +12,13 @@ enum ActionTypes {
 interface ActionCreator {
   type: ActionTypes;
   payload: any;
+}
+
+interface SetTodoListActionCreator extends ActionCreator {
+  /**
+   * Todo list to store.
+   */
+  payload: TodoList;
 }
 
 interface SetNameActionCreator extends ActionCreator {
@@ -73,6 +81,16 @@ interface ItemIsCompletePayload {
 }
 
 /**
+ * Creates the SET_TODO_LIST Action.
+ * @param payload Todolist.
+ * @returns Action Creator.
+ */
+const setTodoList = (payload: TodoList): SetTodoListActionCreator => ({
+  type: ActionTypes.SetTodoList,
+  payload,
+});
+
+/**
  * Creates the SET_NAME Action.
  * @param name Name of the Todo List.
  * @returns Action Creator.
@@ -128,6 +146,7 @@ const deleteItem = (id: string): DeleteItemActionCreator => ({
 
 export {
   ActionTypes,
+  setTodoList,
   setName,
   setNewBlankItem,
   setItemDescription,
@@ -136,6 +155,7 @@ export {
 };
 export type {
   ActionCreator,
+  SetTodoListActionCreator,
   SetNameActionCreator,
   SetNewBlankItemActionCreator,
   SetItemDescriptionActionCreator,
