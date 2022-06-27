@@ -6,6 +6,7 @@ import { DisplayContent } from "@components/_pages/new/DisplayContent";
 import { postTodoList, HTTPResponse, ResponseCodes } from "@fetch/list/post";
 import { TodoList } from "@interfaces/TodoList";
 import Panel from "@components/Panel";
+import removeIDs from "@util/generateItemIDs/removeIDs";
 import TodoListForm from "@components/TodoListForm";
 import todoListReducer from "@components/TodoListForm/useReducer/reducers";
 
@@ -39,28 +40,6 @@ const H1 = styled.h1`
   margin-top: 0;
   margin-bottom: 0;
 `;
-
-/**
- * Remove IDs from TodoList.
- *
- * @param formValues TodoList object.
- * @returns TodoList object without IDs.
- */
-const removeIDs = (formValues: TodoList): TodoList => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const obj: TodoList = JSON.parse(JSON.stringify(formValues));
-
-  if (obj.items !== undefined) {
-    obj.items = obj.items.map((item) => {
-      delete item.id;
-      return item;
-    });
-  }
-
-  delete obj.id;
-
-  return obj;
-};
 
 // Default form values.
 const defaultValues: TodoList = {
