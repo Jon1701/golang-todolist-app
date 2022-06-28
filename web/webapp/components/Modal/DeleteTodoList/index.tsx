@@ -122,7 +122,7 @@ const DeleteTodoListModal: React.FC<Props> = ({
     <BaseModal title="Delete Todo List" handleCloseButtonClick={handleClose}>
       {contentCode === ContentCodes.ShowForm ? (
         <DeleteTodoListForm
-          handleSubmit={handleSubmit}
+          handleSubmit={(e: React.SyntheticEvent) => void handleSubmit(e)}
           handleCancelButtonClick={handleClose}
         />
       ) : (
