@@ -9,6 +9,7 @@ import {
   put,
   ResponseCodes as ReplaceTodoListResponseCodes,
 } from "@fetch/list/put";
+import { ActionCreator } from "@components/Forms/CreateUpdateTodoList/useReducer/actions";
 import { ContainerPage, ContainerContent, H1 } from "@components/Page";
 import { setTodoList } from "@components/Forms/CreateUpdateTodoList/useReducer/actions";
 import { TodoList } from "@interfaces/TodoList";
@@ -47,7 +48,9 @@ const defaultValues: TodoList = {
  */
 const UpdateTodoListPage: React.FC = () => {
   // Form data.
-  const [formValues, dispatch] = useReducer(todoListReducer, defaultValues);
+  const [formValues, dispatch] = useReducer<
+    (state: TodoList, action: ActionCreator) => TodoList
+  >(todoListReducer, defaultValues);
 
   // Validation Results.
   const [validationResults, setValidationResults] = useState<
@@ -77,12 +80,19 @@ const UpdateTodoListPage: React.FC = () => {
    * Fetches a TodoList by ID.
    */
   const getTodoListByID = async () => {
+    if (typeof id !== "string") {
+      return;
+    }
+
     setContentCode(ContentCodes.Loading);
 
     const response = await getSpecific(id);
     switch (response.responseCode) {
       case GetSpecificResponseCodes.Success: {
-        // Attach IDs to items.
+        if (response.body === undefined) {
+          return;
+        }
+
         const data: TodoList = generateItemIDs(response.body);
         dispatch(setTodoList(data));
         setContentCode(ContentCodes.GetListSuccess);
@@ -106,6 +116,10 @@ const UpdateTodoListPage: React.FC = () => {
    */
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    if (typeof id !== "string") {
+      return;
+    }
 
     setAlertCode(undefined);
     setContentCode(ContentCodes.Loading);
@@ -142,11 +156,12 @@ const UpdateTodoListPage: React.FC = () => {
     if (id) {
       void getTodoListByID();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
     <React.Fragment>
-      {isDeleteModalVisible && id !== undefined ? (
+      {isDeleteModalVisible && typeof id === "string" ? (
         <DeleteTodoListModal
           id={id}
           handleCloseDefault={() => {
@@ -174,7 +189,7 @@ const UpdateTodoListPage: React.FC = () => {
 
                 <TodoListForm
                   JSXAlerts={
-                    alertCode ? <DisplayAlert code={alertCode} /> : null
+                    alertCode ? <DisplayAlert code={alertCode} /> : undefined
                   }
                   dispatch={dispatch}
                   formValues={formValues}
