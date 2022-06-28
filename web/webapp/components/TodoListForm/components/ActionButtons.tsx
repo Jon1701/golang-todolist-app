@@ -1,13 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
-import { PrimaryButton, SecondaryLinkButton } from "@components/Buttons";
+import {
+  PrimaryButton,
+  SecondaryLinkButton,
+  RedPrimaryButton,
+} from "@components/Buttons";
 
 interface Props {
   /**
    * Path for the Cancel button.
    */
   pathCancelButton?: string;
+
+  /**
+   * Click handler for the Delete button.
+   */
+  handleDeleteButtonClick?(): void;
 }
 
 /**
@@ -28,7 +37,10 @@ const Container = styled.div`
  *
  * @returns Action buttons.
  */
-const ActionButtons: React.FC<Props> = ({ pathCancelButton }) => {
+const ActionButtons: React.FC<Props> = ({
+  pathCancelButton,
+  handleDeleteButtonClick,
+}) => {
   return (
     <Container>
       <PrimaryButton type="submit">Save</PrimaryButton>
@@ -37,6 +49,12 @@ const ActionButtons: React.FC<Props> = ({ pathCancelButton }) => {
         <SecondaryLinkButton href={pathCancelButton}>
           Cancel
         </SecondaryLinkButton>
+      ) : null}
+
+      {handleDeleteButtonClick ? (
+        <RedPrimaryButton type="button" onClick={handleDeleteButtonClick}>
+          Delete
+        </RedPrimaryButton>
       ) : null}
     </Container>
   );

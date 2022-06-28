@@ -63,6 +63,11 @@ interface TodoListFormProps {
    * Path for the Cancel button.
    */
   pathCancelButton?: string;
+
+  /**
+   * Click handler for the delete button
+   */
+  handleDeleteButtonClick?(): void;
 }
 
 /**
@@ -76,6 +81,7 @@ interface TodoListFormProps {
  * @param props.setValidationResults Sets the field validation results object.
  * @param props.handleSubmit Form submission handler.
  * @param props.pathCancelButton Path for the Cancel button.
+ * @param props.handleDeleteButtonClick Click handler for the Delete button.
  * @returns Form.
  */
 const TodoListForm: React.FC<TodoListFormProps> = ({
@@ -86,6 +92,7 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
   setValidationResults,
   handleSubmit,
   pathCancelButton,
+  handleDeleteButtonClick,
 }) => {
   /**
    * Generates a default TodoList Item.
@@ -114,7 +121,10 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <ActionButtons pathCancelButton={pathCancelButton} />
+      <ActionButtons
+        pathCancelButton={pathCancelButton}
+        handleDeleteButtonClick={handleDeleteButtonClick}
+      />
 
       {JSXAlerts}
 
