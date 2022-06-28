@@ -8,6 +8,10 @@ const nextConfig = {
     // ssr and displayName are configured by default
     styledComponents: true,
   },
+  eslint: {
+    // Ignore linter in production builds.
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;
