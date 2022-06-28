@@ -14,3 +14,4 @@ The following `make` targets are available:
   - `make run-prettier` to run Prettier
 - `make dev` to start the development server
 - `make build` to build the front-end
+- `make export` to export the front-end to static HTML

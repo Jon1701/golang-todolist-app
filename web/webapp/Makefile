@@ -37,3 +37,9 @@ build:
 	@echo "Building webapp..."
 	@${PATH_TO_NODE_BIN}/next build
 	@echo "Done building webapp"
+
+# Exports the front-end to static HTML.
+export: build
+	@echo "Exporting webapp..."
+	@${PATH_TO_NODE_BIN}/next export
+	@echo "Done exporting webapp"
