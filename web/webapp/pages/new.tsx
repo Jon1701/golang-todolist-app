@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from "react";
 
+import { ActionCreator } from "@components/Forms/CreateUpdateTodoList/useReducer/actions";
 import { ContainerPage, ContainerContent, H1 } from "@components/Page";
 import { DisplayContent } from "@components/_pages/new/DisplayContent";
 import { post, HTTPResponse, ResponseCodes } from "@fetch/list/post";
@@ -33,7 +34,9 @@ const defaultValues: TodoList = {
  */
 const CreateNewTodoListPage = () => {
   // Form values.
-  const [formValues, dispatch] = useReducer(todoListReducer, defaultValues);
+  const [formValues, dispatch] = useReducer<
+    (state: TodoList, action: ActionCreator) => TodoList
+  >(todoListReducer, defaultValues);
 
   // Validation results.
   const [validationResults, setValidationResults] = useState<
@@ -92,9 +95,11 @@ const CreateNewTodoListPage = () => {
             <DisplayContent code={contentCode} pathToAllTodoLists="/" />
           ) : (
             <TodoListForm
-              JSXAlerts={alertCode ? <DisplayAlert code={alertCode} /> : null}
+              JSXAlerts={
+                alertCode ? <DisplayAlert code={alertCode} /> : undefined
+              }
               dispatch={dispatch}
-              handleSubmit={handleSubmit}
+              handleSubmit={(e: React.SyntheticEvent) => handleSubmit(e)}
               formValues={formValues}
               setValidationResults={setValidationResults}
               validationResults={validationResults}
