@@ -144,6 +144,18 @@ const deleteItem = (id: string): DeleteItemActionCreator => ({
   payload: id,
 });
 
+/**
+ * Action types.
+ */
+type Action =
+  | SetTodoListActionCreator
+  | SetNameActionCreator
+  | SetNewBlankItemActionCreator
+  | SetItemDescriptionActionCreator
+  | SetItemIsCompleteActionCreator
+  | DeleteItemActionCreator
+  | DeleteItemActionCreator;
+
 export {
   ActionTypes,
   setTodoList,
@@ -154,6 +166,7 @@ export {
   deleteItem,
 };
 export type {
+  Action,
   ActionCreator,
   SetTodoListActionCreator,
   SetNameActionCreator,
