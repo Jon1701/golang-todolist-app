@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { NextRouter, useRouter } from "next/router";
 
-import { ContainerPage, ContainerContent, H1 } from "@components/Page";
 import {
   getSpecific,
   ResponseCodes as GetSpecificResponseCodes,
@@ -10,8 +9,10 @@ import {
   put,
   ResponseCodes as ReplaceTodoListResponseCodes,
 } from "@fetch/list/put";
+import { ContainerPage, ContainerContent, H1 } from "@components/Page";
 import { setTodoList } from "@components/TodoListForm/useReducer/actions";
 import { TodoList } from "@interfaces/TodoList";
+import DeleteTodoListModal from "@components/Modal/DeleteTodoList";
 import DisplayAlert from "@components/_pages/id/DisplayAlert";
 import DisplayContent from "@components/_pages/id/DisplayContent";
 import generateItemIDs from "@util/generateItemIDs";
@@ -61,9 +62,16 @@ const UpdateTodoListPage: React.FC = () => {
     ContentCodes.Loading
   );
 
+  // Modal visibility.
+  const [isDeleteModalVisible, setIsDeleteModalVisible] =
+    useState<boolean>(false);
+
   // Router.
   const router: NextRouter = useRouter();
   const { id } = router.query;
+
+  // Paths
+  const pathCancelButton = "/";
 
   /**
    * Fetches a TodoList by ID.
@@ -91,6 +99,11 @@ const UpdateTodoListPage: React.FC = () => {
     }
   };
 
+  /**
+   * Form submission handler.
+   *
+   * @param e React SyntheticEvent.
+   */
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
@@ -125,8 +138,6 @@ const UpdateTodoListPage: React.FC = () => {
     }
   };
 
-  const pathCancelButton = "/";
-
   useEffect(() => {
     if (id) {
       void getTodoListByID();
@@ -134,31 +145,53 @@ const UpdateTodoListPage: React.FC = () => {
   }, [id]);
 
   return (
-    <ContainerPage>
-      <ContainerContent>
-        <Panel>
-          {contentCode === ContentCodes.Loading ||
-          contentCode === ContentCodes.NotFound ||
-          contentCode === ContentCodes.UnknownError ? (
-            <DisplayContent code={contentCode} />
-          ) : (
-            <React.Fragment>
-              <H1>Update Todo List</H1>
+    <React.Fragment>
+      {isDeleteModalVisible && id !== undefined ? (
+        <DeleteTodoListModal
+          id={id}
+          handleCloseDefault={() => {
+            setIsDeleteModalVisible(false);
+          }}
+          handleCloseSuccess={() => {
+            void router.push("/");
+          }}
+          handleCloseFailed={() => {
+            setIsDeleteModalVisible(false);
+          }}
+        />
+      ) : null}
 
-              <TodoListForm
-                JSXAlerts={alertCode ? <DisplayAlert code={alertCode} /> : null}
-                dispatch={dispatch}
-                formValues={formValues}
-                validationResults={validationResults}
-                setValidationResults={setValidationResults}
-                handleSubmit={handleSubmit}
-                pathCancelButton={pathCancelButton}
-              />
-            </React.Fragment>
-          )}
-        </Panel>
-      </ContainerContent>
-    </ContainerPage>
+      <ContainerPage>
+        <ContainerContent>
+          <Panel>
+            {contentCode === ContentCodes.Loading ||
+            contentCode === ContentCodes.NotFound ||
+            contentCode === ContentCodes.UnknownError ? (
+              <DisplayContent code={contentCode} />
+            ) : (
+              <React.Fragment>
+                <H1>Update Todo List</H1>
+
+                <TodoListForm
+                  JSXAlerts={
+                    alertCode ? <DisplayAlert code={alertCode} /> : null
+                  }
+                  dispatch={dispatch}
+                  formValues={formValues}
+                  validationResults={validationResults}
+                  setValidationResults={setValidationResults}
+                  handleSubmit={handleSubmit}
+                  pathCancelButton={pathCancelButton}
+                  handleDeleteButtonClick={() => {
+                    setIsDeleteModalVisible(true);
+                  }}
+                />
+              </React.Fragment>
+            )}
+          </Panel>
+        </ContainerContent>
+      </ContainerPage>
+    </React.Fragment>
   );
 };
 
