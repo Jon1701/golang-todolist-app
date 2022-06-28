@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
  * @param formValues Todo List.
  * @returns Todo List with IDs for each item.
  */
-const generateItemIDs: TodoList = (formValues: TodoList) => {
+const generateItemIDs = (formValues: TodoList): TodoList => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const copy: TodoList = JSON.parse(JSON.stringify(formValues));
 
