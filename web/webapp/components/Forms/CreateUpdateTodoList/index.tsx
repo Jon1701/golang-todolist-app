@@ -26,7 +26,7 @@ import Input from "./styles/Input";
 import Label from "./components/Label";
 import ValidationMessage from "./components/ValidationMessage";
 
-interface TodoListFormProps {
+interface Props {
   /**
    * Alerts to be rendered.
    */
@@ -57,7 +57,7 @@ interface TodoListFormProps {
   /**
    * Form submission handler.
    */
-  handleSubmit: (e: React.SyntheticEvent) => void;
+  handleSubmit: (e: React.SyntheticEvent<Element, Event>) => Promise<void>;
 
   /**
    * Path for the Cancel button.
@@ -84,7 +84,7 @@ interface TodoListFormProps {
  * @param props.handleDeleteButtonClick Click handler for the Delete button.
  * @returns Form.
  */
-const TodoListForm: React.FC<TodoListFormProps> = ({
+const CreateUpdateTodoListForm: React.FC<Props> = ({
   JSXAlerts,
   dispatch,
   formValues,
@@ -120,7 +120,7 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={(e: React.SyntheticEvent) => void handleSubmit(e)}>
       <ActionButtons
         pathCancelButton={pathCancelButton}
         handleDeleteButtonClick={handleDeleteButtonClick}
@@ -157,12 +157,14 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
                     type="checkbox"
                     checked={item.isComplete}
                     onChange={(e) => {
-                      const payload: ItemIsCompletePayload = {
-                        id: item.id,
-                        isComplete: e.target.checked,
-                      };
+                      if (item.id !== undefined) {
+                        const payload: ItemIsCompletePayload = {
+                          id: item.id,
+                          isComplete: e.target.checked,
+                        };
 
-                      dispatch(setItemIsComplete(payload));
+                        dispatch(setItemIsComplete(payload));
+                      }
                     }}
                   />
                 </ContainerCheckbox>
@@ -172,12 +174,14 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
                     type="text"
                     value={item.description}
                     onChange={(e) => {
-                      const payload: ItemDescriptionPayload = {
-                        id: item.id,
-                        description: e.target.value,
-                      };
+                      if (item.id) {
+                        const payload: ItemDescriptionPayload = {
+                          id: item.id,
+                          description: e.target.value,
+                        };
 
-                      dispatch(setItemDescription(payload));
+                        dispatch(setItemDescription(payload));
+                      }
                     }}
                     validationMessage={
                       validationResults?.items?.[idx]?.description
@@ -187,8 +191,10 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
                 <ContainerDelete>
                   <DeleteButton
                     handleClick={() => {
-                      setValidationResults(undefined);
-                      dispatch(deleteItem(item.id));
+                      if (item.id) {
+                        setValidationResults(undefined);
+                        dispatch(deleteItem(item.id));
+                      }
                     }}
                   />
                 </ContainerDelete>
@@ -222,4 +228,4 @@ const TodoListForm: React.FC<TodoListFormProps> = ({
   );
 };
 
-export default TodoListForm;
+export default CreateUpdateTodoListForm;
