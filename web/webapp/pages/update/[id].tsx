@@ -10,7 +10,7 @@ import {
   ResponseCodes as ReplaceTodoListResponseCodes,
 } from "@fetch/list/put";
 import { ContainerPage, ContainerContent, H1 } from "@components/Page";
-import { setTodoList } from "@components/TodoListForm/useReducer/actions";
+import { setTodoList } from "@components/Forms/CreateUpdateTodoList/useReducer/actions";
 import { TodoList } from "@interfaces/TodoList";
 import DeleteTodoListModal from "@components/Modal/DeleteTodoList";
 import DisplayAlert from "@components/_pages/id/DisplayAlert";
@@ -18,8 +18,8 @@ import DisplayContent from "@components/_pages/id/DisplayContent";
 import generateItemIDs from "@util/generateItemIDs";
 import Panel from "@components/Panel";
 import removeIDs from "@util/removeIDs";
-import TodoListForm from "@components/TodoListForm";
-import todoListReducer from "@components/TodoListForm/useReducer/reducers";
+import TodoListForm from "@components/Forms/CreateUpdateTodoList";
+import todoListReducer from "@components/Forms/CreateUpdateTodoList/useReducer/reducers";
 
 enum AlertCodes {
   InvalidFieldValues = "INVALID_FIELD_VALUES",
