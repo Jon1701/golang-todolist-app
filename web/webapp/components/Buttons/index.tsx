@@ -86,6 +86,15 @@ const SecondaryLinkButton = styled(BaseLinkButton)`
   color: #000;
 `;
 
+/**
+ * Primary Button with Red colour.
+ */
+const RedPrimaryButton = styled(BaseButton)`
+  background-color: #dc143c;
+  border-color: #dc143c;
+  color: #fff;
+`;
+
 export {
   BaseButton,
   BaseLinkButton,
@@ -93,4 +102,5 @@ export {
   PrimaryLinkButton,
   SecondaryButton,
   SecondaryLinkButton,
+  RedPrimaryButton,
 };
