@@ -31,3 +31,9 @@ dev:
 	@PORT=${PORT_DEV_SERVER} \
 		${PATH_TO_NODE_BIN}/next dev
 	@echo "Done starting development server"
+
+# Builds the front-end.
+build:
+	@echo "Building webapp..."
+	@${PATH_TO_NODE_BIN}/next build
+	@echo "Done building webapp"

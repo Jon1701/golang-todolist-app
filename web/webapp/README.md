@@ -13,3 +13,4 @@ The following `make` targets are available:
   - `make run-eslint` to run ESLint
   - `make run-prettier` to run Prettier
 - `make dev` to start the development server
+- `make build` to build the front-end
