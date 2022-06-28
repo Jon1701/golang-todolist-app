@@ -67,12 +67,14 @@ const DisplayLists: React.FC<Props> = ({ data }) => {
                 </div>
 
                 <div>
-                  <SecondaryLinkButton
-                    href={`/update/${todolist.id}`}
-                    style={{ padding: "5px" }}
-                  >
-                    🗒️
-                  </SecondaryLinkButton>
+                  {todolist.id !== undefined ? (
+                    <SecondaryLinkButton
+                      href={`/update/${todolist.id}`}
+                      style={{ padding: "5px" }}
+                    >
+                      🗒️
+                    </SecondaryLinkButton>
+                  ) : null}
                 </div>
               </ListItem>
 
