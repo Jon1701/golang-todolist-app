@@ -12,6 +12,9 @@ const nextConfig = {
     // Ignore linter in production builds.
     ignoreDuringBuilds: true,
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;
