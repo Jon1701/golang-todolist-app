@@ -19,6 +19,12 @@ run-eslint:
 	@${PATH_TO_NODE_BIN}/next lint
 	@echo "Done running ESLint"
 
+# Run Stylelint.
+run-stylelint:
+	@echo "Running Stylelint..."
+	@${PATH_TO_NODE_BIN}/stylelint "**/*.tsx"
+	@echo "Done running Stylelint"
+
 # Run Prettier.
 run-prettier:
 	@echo "Running Prettier..."
