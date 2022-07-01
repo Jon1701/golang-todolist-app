@@ -14,6 +14,17 @@ This is yet another todo list application, but...written in Golang!
   - [nvm Deep Shell Integration](https://github.com/nvm-sh/nvm#deeper-shell-integration)
   - [Node.js v16.15.1 LTS](https://github.com/nvm-sh/nvm#long-term-support)
 
+## Environment Variables
+
+| Variable                                     | Description                                                    |
+| -------------------------------------------- | -------------------------------------------------------------- |
+| GOLANG_TODOLIST_MONGO_DOCKER_CONTAINER_NAME  | Docker Container name of the MongoDB Database services         |
+| GOLANG_TODOLIST_MONGO_DATABASE_ROOT_USERNAME | Root Database User (for database intialization)                |
+| GOLANG_TODOLIST_MONGO_DATABASE_ROOT_PASSWORD | Root Database Password (for database intialization)            |
+| GOLANG_TODOLIST_MONGO_DATABASE_NAME          | Name of the database used by the application                   |
+| GOLANG_TODOLIST_MONGO_APP_USERNAME           | Username used by the application to persist changes to MongoDB |
+| GOLANG_TODOLIST_MONGO_APP_PASSWORD           | Password used by the application to persist changes to MongoDB |
+
 ## API Documentation
 
 ### Endpoints
